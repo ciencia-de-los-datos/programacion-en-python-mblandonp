@@ -21,8 +21,18 @@ def pregunta_01():
     214
 
     """
-    x = 214
-    return x
+    
+    # Carga el archivo
+    #
+    data = open("data.csv", 'r').readlines()
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+
+    segcol = [int(row[1]) for row in data]
+    suma = sum(segcol)
+    print(suma)  
+
+    return suma
 
 
 def pregunta_02():
