@@ -24,16 +24,13 @@ def pregunta_01():
     
     # Carga el archivo
     #
-    data = open("data.csv", 'r').readlines()
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
     data = [line.replace("\n", "") for line in data] 
     data = [line.split("\t") for line in data] 
-
     segcol = [int(row[1]) for row in data]
     suma = sum(segcol)
-    print(suma)  
-
-    return suma
-
+    return suma 
 
 def pregunta_02():
     """
@@ -50,7 +47,18 @@ def pregunta_02():
     ]
 
     """
-    return
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+    column = [row[0] for row in data]
+    dic = dict(sorted(dict((i, column.count(i)) for i in column).items(), key = lambda letra: letra[0]))
+    lista = []
+    for x in dic.items():
+        lista.append(x)
+    return lista
+    
 
 
 def pregunta_03():
@@ -68,7 +76,23 @@ def pregunta_03():
     ]
 
     """
-    return
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+    
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+    columns = [row[:2] for row in data]
+    columns = sorted(columns)
+    resultado = {}
+    for letra, val in columns:
+        val = int(val) 
+        if letra in resultado.keys():
+            resultado[letra].append(val)
+        else:
+            resultado[letra] = [val]
+    resultado = [(key, sum(val)) for key, val in resultado.items()]
+    return resultado   
+    
 
 
 def pregunta_04():
@@ -93,7 +117,18 @@ def pregunta_04():
     ]
 
     """
-    return
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t")[2] for line in data] 
+    column = [row[5:7] for row in data]
+    dic = dict(sorted(dict((i, column.count(i)) for i in column).items(), key = lambda letra: letra[0]))
+    lista = []
+    for x in dic.items():
+        lista.append(x)
+    return lista
+    
 
 
 def pregunta_05():
@@ -111,7 +146,22 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+    columns = [row[:2] for row in data]
+    columns = sorted(columns)
+    resultado = {}
+    for letra, val in columns:
+        val = int(val) 
+        if letra in resultado.keys():
+            resultado[letra].append(val)
+        else:
+            resultado[letra] = [val]
+    resultado = [(key, max(val), min(val) ) for key, val in resultado.items()]
+    return resultado 
+    
 
 
 def pregunta_06():
