@@ -186,7 +186,31 @@ def pregunta_06():
     ]
 
     """
-    return
+    from operator import itemgetter
+
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+    column = [row[4] for row in data]
+    column = [i.split(',') for i in column]
+
+    lista = []
+    for valor in column:
+        [lista.append(i) for i in valor]
+    lista = [i.split(':') for i in lista]
+
+    resultado = {}
+    for letras, val in lista:
+        val = int(val) 
+        if letras in resultado.keys():
+            resultado[letras].append(val)
+        else:
+            resultado[letras] = [val]
+        
+    resultado = [(key, min(val), max(val) ) for key, val in resultado.items()]
+    resultado = sorted(resultado, key=itemgetter(0), reverse=False)
+    return  resultado     
 
 
 def pregunta_07():
@@ -210,7 +234,22 @@ def pregunta_07():
     ]
 
     """
-    return
+    from operator import itemgetter
+
+    with open("data.csv", 'r') as file:
+        data = file.readlines()
+    data = [line.replace("\n", "") for line in data] 
+    data = [line.split("\t") for line in data] 
+    columns = [[row[1]] + [row[0]]  for row in data]
+    resultado = {}
+    for valor, letra in columns:
+        if valor in resultado.keys():
+            resultado[valor].append(letra)
+        else:
+            resultado[valor] = [letra]
+    resultado = [(key, letra) for key, letra in resultado.items()]
+    resultado = sorted(resultado, key=itemgetter(0), reverse=False)
+    return resultado   
 
 
 def pregunta_08():
